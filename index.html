@@ -13,8 +13,15 @@
         </div>
         <div id="etusivu">
             <div id="etusivu2">
-                <button class="napit">selaa äänestyksiä</button>
-                <button class="napit">kirjaudu ylläpitäjänä</button>
+                <a href="äänestykset.html"><button class="napit" >selaa äänestyksiä</button></a>
+                <button class="napit" id="kirjaudu">kirjaudu ylläpitäjänä</button>
+            </div>
+            <div id="kirjautuminen" style="display: none;">
+                <form id="kirjauduForm">
+                <label for="pw" style="color: white;">Salasana:</label>
+                <input type="password" id="pw" name="pw" placeholder="admin">
+                <button type="submit">Kirjaudu</button>
+            </form>
             </div>
         </div>
         <script src="main.js"></script>
