@@ -4,13 +4,18 @@
     background-color: rgb(1, 1, 31);
     text-align: center;
     color: white;
-    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .yla h1{
-    padding-top: 25px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
 }
-
 #etusivu{
     margin: 0 auto;
     width: 50%;
@@ -37,4 +42,39 @@
     color: white;
     height: 50px;
     margin: auto;
+}
+
+#hNappi{
+    color: white;
+    background-color: black;
+    width: 15%;
+    padding: 8px 12px;
+}
+
+#aanestysMonitor{
+    width: 100%;
+    background-color: rgb(1, 1, 31);
+    display: flex;
+
+}
+
+.aanestysDiv {
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: calc(33% - 20px); /* kolme vierekkäin + gap */
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #000000;
+  color: white;
+}
+
+.aanestysDiv h3 {
+  margin-top: 0;
+}
+
+.vaihtoehtoBtn {
+  display: block;
+  margin: 5px 0;
+  padding: 8px;
+  cursor: pointer;
 }
