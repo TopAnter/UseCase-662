@@ -54,7 +54,15 @@ function luoAanestysDiv(aanestys) {
 
   const otsikko = document.createElement("h3");
   otsikko.textContent = aanestys.nimi;
+  otsikko.style.display = "inline";
   div.appendChild(otsikko);
+
+
+  const poista = document.createElement("button");
+  poista.textContent = "Poista";
+  poista.className = "poistaNappi";
+  poista.style.marginLeft = "70%";
+  div.appendChild(poista);
 
   aanestys.vaihtoehdot.forEach((v, i) => {
     const nappi = document.createElement("button");
@@ -71,3 +79,29 @@ function luoAanestysDiv(aanestys) {
 }
 
 aanestykset.forEach(aanestys => luoAanestysDiv(aanestys));
+
+const hallitseNappi = document.getElementById("hNappi");
+
+if (hallitseNappi) {
+    hallitseNappi.addEventListener("click", function(event) {
+      event.preventDefault();
+      document.getElementById("aanestysMonitor").style.display = "none";
+      document.getElementById("hDiv").style.display = "block";
+    });
+  }
+
+  //äänestyksen lisäys funktio
+  const kirjauduForm = document.getElementById("kirjauduForm");
+  if (kirjauduForm) {
+    kirjauduForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const pw = document.getElementById("pw").value;
+      if (pw === "admin") {
+        localStorage.setItem("admin", "true");
+        window.location.href = "äänestykset.html";
+      } else {
+        alert("Väärä salasana!");
+      }
+    });
+  }

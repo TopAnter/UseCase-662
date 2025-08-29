@@ -51,12 +51,6 @@
     padding: 8px 12px;
 }
 
-#aanestysMonitor{
-    width: 100%;
-
-    display: flex;
-
-}
 
 .aanestysDiv {
   border: 1px solid #ccc;
@@ -77,4 +71,24 @@
   margin: 5px 0;
   padding: 8px;
   cursor: pointer;
+}
+
+#hDiv {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    width:fit-content;
+    margin: auto;
+    color: white;
+}
+
+.poistaNappi{
+    color: white;
+    background-color: black;
+    width: 15%;
+    padding: 8px 12px;
+    border-style: dotted;
+    border-color: white;
 }
