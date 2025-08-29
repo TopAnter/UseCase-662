@@ -61,7 +61,22 @@ function luoAanestysDiv(aanestys) {
   const poista = document.createElement("button");
   poista.textContent = "Poista";
   poista.className = "poistaNappi";
-  poista.style.marginLeft = "70%";
+
+  const onAdmin = localStorage.getItem("admin") === "true";
+  poista.style.display = onAdmin ? "inline" : "none";
+
+  // event listener kaikilel napeille
+  poista.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    const otsikko = div.querySelector("h3").textContent;
+    aanestykset = aanestykset.filter(a => a.nimi !== otsikko);
+
+    div.remove();
+    console.log("Deleted:", otsikko);
+    console.log("Remaining:", aanestykset);
+  });
+
   div.appendChild(poista);
 
   aanestys.vaihtoehdot.forEach((v, i) => {
@@ -91,17 +106,38 @@ if (hallitseNappi) {
   }
 
   //äänestyksen lisäys funktio
-  const kirjauduForm = document.getElementById("kirjauduForm");
-  if (kirjauduForm) {
-    kirjauduForm.addEventListener("submit", function(event) {
+  const äänestysForm = document.getElementById("lisaaForm");
+  if (äänestysForm) {
+    äänestysForm.addEventListener("submit", function(event) {
       event.preventDefault();
+      // haetaan tiedot
+      const nimi = document.getElementById("nimi").value;
+      const vaihtoehtoKentat = document.querySelectorAll("input[name='vaihtoehto']");
+  
+      // luodaan vaihtoehdot (vain täytetyt)
+      const vaihtoehdot = Array.from(vaihtoehtoKentat)
+        .filter(input => input.value.trim() !== "")
+        .map(input => ({ nimi: input.value, aania: 0 }));
+
+      // luodaan uusi äänestys-objekti
+      const uusiAanestys = {
+        nimi: nimi,
+        vaihtoehdot: vaihtoehdot
+      };
+
+      // lisätään taulukkoon
+      aanestykset.push(uusiAanestys);
+
+      // luo uusi div
+      luoAanestysDiv(uusiAanestys);
+
+      // nollataan lomake
+      äänestysForm.reset();
+
+
+      document.getElementById("aanestysMonitor").style.display = "block";
+      document.getElementById("hDiv").style.display = "none";
       
-      const pw = document.getElementById("pw").value;
-      if (pw === "admin") {
-        localStorage.setItem("admin", "true");
-        window.location.href = "äänestykset.html";
-      } else {
-        alert("Väärä salasana!");
-      }
-    });
+      });
   }
+
