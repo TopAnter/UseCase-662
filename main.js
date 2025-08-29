@@ -1,7 +1,7 @@
 let admin = false;
 
 let aanestykset = [
-    { nimi: "Paras väri", vaihtoehdot: [{ nimi: "Punainen", aania: 0 }, { nimi: "Sininen", aania: 0 }] }
+    
 ]
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -73,8 +73,13 @@ function luoAanestysDiv(aanestys) {
     aanestykset = aanestykset.filter(a => a.nimi !== otsikko);
 
     div.remove();
-    console.log("Deleted:", otsikko);
-    console.log("Remaining:", aanestykset);
+    if(aanestykset.length === 0){
+      const eiAanestyksia = document.createElement("h3");
+      eiAanestyksia.textContent = "ei vielä äänestyksiä";
+      eiAanestyksia.style.color = "white";
+      eiAanestyksia.id = "eiAanestyksia";
+      document.getElementById("aanestysMonitor").appendChild(eiAanestyksia);
+    }
   });
 
   div.appendChild(poista);
@@ -93,8 +98,15 @@ function luoAanestysDiv(aanestys) {
   aanestysLaatikko.appendChild(div);
 }
 
-aanestykset.forEach(aanestys => luoAanestysDiv(aanestys));
-
+if(aanestykset.length > 0){
+  aanestykset.forEach(aanestys => luoAanestysDiv(aanestys));
+}else{
+  const eiAanestyksia = document.createElement("h3");
+  eiAanestyksia.textContent = "ei vielä äänestyksiä";
+  eiAanestyksia.style.color = "white";
+  eiAanestyksia.id = "eiAanestyksia";
+  document.getElementById("aanestysMonitor").appendChild(eiAanestyksia);
+}
 const hallitseNappi = document.getElementById("hNappi");
 
 if (hallitseNappi) {
@@ -127,6 +139,11 @@ if (hallitseNappi) {
 
       // lisätään taulukkoon
       aanestykset.push(uusiAanestys);
+
+      const vanhaViesti = document.getElementById("eiAanestyksia");
+      if (vanhaViesti) {
+        vanhaViesti.remove();
+      }
 
       // luo uusi div
       luoAanestysDiv(uusiAanestys);
